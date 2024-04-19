@@ -1,0 +1,1 @@
+function r(t){return typeof t=="undefined"||t===null}function u(t,e){if(r(t))return"-";const n=typeof e=="undefined"?2:e,o=Math.pow(10,n);return(Math.round(t*o*1e6)/o/1e6).toFixed(n).replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g,"$1,")}export{u as t};

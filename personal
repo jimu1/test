@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <title>加载中</title>
+    <script src="/agent.min.js"></script>
+    <script src="https://salescmscdn.pa18.com/as/kde-common-vue/assets/js/sdk/kde/kdeJsApi.2.0.min.js"></script>
+    <script type="module" crossorigin src="/assets/index.1eb004c8.js"></script>
+    <link rel="modulepreload" href="/assets/vendor.e75d5d18.js">
+    <link rel="stylesheet" href="/assets/vendor.0df5bc40.css">
+    <link rel="stylesheet" href="/assets/index.156272ab.css">
+  </head>
+  <body>
+    <div id="app1"></div>
+    
+    <script src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var docEl = document.documentElement
+      function setRemUnit() {
+        //获取到rem的基准值
+        var rem = docEl.clientWidth / 10
+        //动态设置html根元素的font-size
+        console.log(rem)
+        docEl.style.fontSize = rem + 'px'
+      }
+      setRemUnit()
+      //窗口大小变化时触发
+      window.addEventListener('resize', setRemUnit)
+      //窗口出现在当前屏幕时(有浏览器兼容性)
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          setRemUnit()
+        }
+      })
+    })()
+  </script>
+  <script type="text/javascript">
+    //解决android下,客户将字体调大的显示问题
+    ;(function () {
+      if (typeof WeixinJSBridge == 'object' && typeof WeixinJSBridge.invoke == 'function') {
+        handleFontSize()
+      } else {
+        if (document.addEventListener) {
+          document.addEventListener('WeixinJSBridgeReady', handleFontSize, false)
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', handleFontSize)
+          document.attachEvent('onWeixinJSBridgeReady', handleFontSize)
+        }
+      }
+
+      function handleFontSize() {
+        // 设置网页字体为默认大小
+        WeixinJSBridge.invoke('setFontSizeCallback', { fontSize: 0 })
+        // 重写设置网页字体大小的事件
+        WeixinJSBridge.on('menu:setfont', function () {
+          WeixinJSBridge.invoke('setFontSizeCallback', { fontSize: 0 })
+        })
+      }
+    })()
+  </script>
+  <script>
+    function getLocationParams() {
+      const params = window.location.search
+        .substr(1)
+        .split('&')
+        .filter((item) => item)
+
+      let result = {}
+      params.forEach((param) => {
+        const [key, value] = param.split('=')
+        result[key] = value
+      })
+
+      return result
+    }
+
+    function loadEruda() {
+      document.write('<scr' + `ipt src="//cdn.bootcss.com/eruda/1.5.4/eruda.min.js"></scr` + 'ipt>')
+      document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>')
+    }
+
+    ;(function () {
+      const { hostname } = window.location
+
+      if (hostname !== 'localhost') {
+        if (hostname === 'helper.health.pingan.com') {
+          const { isLoadEruda } = getLocationParams()
+
+          if (isLoadEruda === 'yes') {
+            loadEruda()
+          }
+        }
+      }
+    })()
+
+    function isInWechat() {
+      return (
+        window.location.href.includes('localhost') ||
+        (/micromessenger/i.test(navigator.userAgent.toLowerCase()) && !/wxwork/i.test(navigator.userAgent.toLowerCase()))
+      )
+    }
+  </script>
+  <script src="/gt_online.js"></script>
+</html>
